@@ -9,10 +9,18 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class EntMain extends AppCompatActivity {
 
-    private TextView mTextMessage;
+    private FirebaseDatabase database;
+    private DatabaseReference myRef;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -37,11 +45,31 @@ public class EntMain extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ent_main);
 
+        database = FirebaseDatabase.getInstance();
+        myRef = database.getReference();
+
         Button examButton = (Button) findViewById(R.id.examButton);
         examButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), ExamActivity.class));
+                myRef.setValue("Hello, World!");
+                myRef.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        String res="test";
+                        for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                            res = dataSnapshot.getKey().toString();
+                        }
+                        Toast.makeText(getApplicationContext(), res,
+                                Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+                //startActivity(new Intent(getApplicationContext(), ExamActivity.class));
             }
         });
 
