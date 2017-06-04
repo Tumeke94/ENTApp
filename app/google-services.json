@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "540741163702-mouum083opff3gj1o64k7g8ot6lrk5ed.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.tumeke.entapp",
+            "certificate_hash": "5e13385785e5b00a7142dde5acec0bc4ba3d9803"
+          }
+        },
+        {
           "client_id": "540741163702-ucnnkbemoboeo1l7bgcs9ubd8ajjp6ll.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -29,8 +37,13 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "540741163702-ucnnkbemoboeo1l7bgcs9ubd8ajjp6ll.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         },
         "ads_service": {
           "status": 2

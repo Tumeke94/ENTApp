@@ -17,10 +17,16 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+
 public class EntMain extends AppCompatActivity {
 
     private FirebaseDatabase database;
     private DatabaseReference myRef;
+    private String res;
+    private List<String> questions;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -48,27 +54,28 @@ public class EntMain extends AppCompatActivity {
         database = FirebaseDatabase.getInstance();
         myRef = database.getReference();
 
+        questions = new ArrayList<>();
+
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    questions.add(snapshot.getChildren().iterator().next().toString());
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
         Button examButton = (Button) findViewById(R.id.examButton);
         examButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                myRef.setValue("Hello, World!");
-                myRef.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        String res="test";
-                        for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                            res = dataSnapshot.getKey().toString();
-                        }
-                        Toast.makeText(getApplicationContext(), res,
-                                Toast.LENGTH_SHORT).show();
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-
-                    }
-                });
+                Toast.makeText(getApplicationContext(), questions.get(0),
+                        Toast.LENGTH_SHORT).show();
                 //startActivity(new Intent(getApplicationContext(), ExamActivity.class));
             }
         });
