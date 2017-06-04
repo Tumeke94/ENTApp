@@ -76,7 +76,7 @@ public class EntMain extends AppCompatActivity {
             public void onClick(View v) {
                 Toast.makeText(getApplicationContext(), questions.get(0),
                         Toast.LENGTH_SHORT).show();
-                //startActivity(new Intent(getApplicationContext(), ExamActivity.class));
+                //startActivity(n ew Intent(getApplicationContext(), ExamActivity.class));
             }
         });
 
