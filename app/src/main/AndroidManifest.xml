@@ -22,6 +22,10 @@
             android:name=".ExamActivity"
             android:parentActivityName=".EntMain"/>
         <activity android:name=".LoginActivity"/>
+        <activity
+            android:exported="true"
+            android:name=".ExamDetailActivity"
+            android:parentActivityName=".ExamActivity"/>
     </application>
 
 </manifest>

@@ -17,16 +17,13 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 public class EntMain extends AppCompatActivity {
-
-    private FirebaseDatabase database;
-    private DatabaseReference myRef;
-    private String res;
-    private List<String> questions;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -51,32 +48,11 @@ public class EntMain extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ent_main);
 
-        database = FirebaseDatabase.getInstance();
-        myRef = database.getReference();
-
-        questions = new ArrayList<>();
-
-        myRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    questions.add(snapshot.getChildren().iterator().next().toString());
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-
         Button examButton = (Button) findViewById(R.id.examButton);
         examButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), questions.get(0),
-                        Toast.LENGTH_SHORT).show();
-                //startActivity(n ew Intent(getApplicationContext(), ExamActivity.class));
+                startActivity(new Intent(getApplicationContext(), ExamActivity.class));
             }
         });
 
